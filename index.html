@@ -1,23 +1,355 @@
-
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    
-    <title>Enrique Ramirez blog</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Enrique Ramirez | Blog</title>
+  <meta name="description" content="Enrique Jesus Ramirez — IT professional focused on cloud, project management, AI, and healthcare analytics." />
 
-</head>    
-    <h1>
-        Hey, I'm Enrique Jesus Ramirez, but close friends and family call me "Quique"
-    </h1>
-    <body>
-        <h2>About me</h2>
+  <style>
+    :root{
+      --bg: #0b1220;          /* deep navy */
+      --panel: #0f1b33;       /* slightly lighter */
+      --text: #e6edf7;        /* near-white */
+      --muted: #a9b7d0;       /* muted gray-blue */
+      --accent: #2f81f7;      /* bright blue */
+      --accent-2: #00c2ff;    /* cyan highlight */
+      --border: rgba(230,237,247,0.12);
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body{
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(47,129,247,0.35), transparent 60%),
+                  radial-gradient(900px 500px at 90% 20%, rgba(0,194,255,0.18), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--accent-2); }
+
+    /* Layout */
+    .container{
+      width: min(1000px, 92vw);
+      margin: 0 auto;
+    }
+
+    /* Header/Nav */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 18, 32, 0.75);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 12px;
+    }
+
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
+    .logo{
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 10px 25px rgba(47,129,247,0.25);
+    }
+
+    nav ul{
+      list-style: none;
+      display: flex;
+      gap: 18px;
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    nav a{
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: background 160ms ease, color 160ms ease;
+    }
+    nav a:hover{
+      background: rgba(47,129,247,0.12);
+      color: var(--text);
+    }
+
+    /* Hero */
+    .hero{
+      padding: 60px 0 28px;
+    }
+
+    .hero-grid{
+      display: grid;
+      grid-template-columns: 1.4fr 0.6fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(15,27,51,0.9), rgba(15,27,51,0.75));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.15;
+      letter-spacing: -0.6px;
+    }
+
+    .subtitle{
+      margin: 0 0 18px;
+      color: var(--muted);
+      max-width: 62ch;
+    }
+
+    .badges{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .badge{
+      font-size: 13px;
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: rgba(47,129,247,0.10);
+      padding: 8px 10px;
+      border-radius: 999px;
+    }
+
+    .actions{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 12px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      background: rgba(230,237,247,0.06);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      transition: transform 120ms ease, background 160ms ease, border 160ms ease;
+      cursor: pointer;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(230,237,247,0.10);
+    }
+
+    .btn.primary{
+      border: 1px solid rgba(47,129,247,0.55);
+      background: linear-gradient(135deg, rgba(47,129,247,0.95), rgba(0,194,255,0.70));
+      color: #071225;
+    }
+    .btn.primary:hover{
+      background: linear-gradient(135deg, rgba(47,129,247,1), rgba(0,194,255,0.85));
+    }
+
+    /* Side panel */
+    .side h3{
+      margin: 0 0 10px;
+      font-size: 15px;
+      color: var(--muted);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .list{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Sections */
+    section{
+      padding: 14px 0;
+    }
+
+    .section-title{
+      margin: 0 0 12px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    .grid-2{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    p { margin: 0; color: var(--muted); }
+
+    .note{
+      font-size: 13px;
+      color: rgba(169,183,208,0.9);
+      margin-top: 10px;
+    }
+
+    /* Footer */
+    footer{
+      margin-top: 34px;
+      padding: 26px 0 40px;
+      color: rgba(169,183,208,0.85);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Responsive */
+    @media (max-width: 860px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .grid-2{ grid-template-columns: 1fr; }
+      nav ul{ gap: 10px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="Home">
+          <span class="logo" aria-hidden="true"></span>
+          <span>Enrique Ramirez</span>
+        </a>
+
+        <nav aria-label="Primary navigation">
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#now">Now</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-grid">
+        <div class="card">
+          <h1>Hey, I’m Enrique Jesus Ramirez — but close friends call me “Quique”.</h1>
+          <p class="subtitle">
+            I’m building a career in cloud computing, project management, and AI—especially where it supports better outcomes in healthcare.
+          </p>
+
+          <div class="badges" aria-label="Focus areas">
+            <span class="badge">Cloud</span>
+            <span class="badge">Project Management</span>
+            <span class="badge">AI</span>
+            <span class="badge">Healthcare Analytics</span>
+          </div>
+
+          <div class="actions">
+            <!-- Replace # with your real links later -->
+            <a class="btn primary" href="#projects">View Projects</a>
+            <a class="btn" href="#contact">Contact Me</a>
+          </div>
+
+          <p class="note">Tip: Add your LinkedIn + GitHub links when you’re ready.</p>
+        </div>
+
+        <aside class="card side">
+          <h3>Quick facts</h3>
+          <ul class="list">
+            <li>IT support + hands-on troubleshooting</li>
+            <li>Learning cloud + automation</li>
+            <li>Interested in healthcare data & reporting</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+
+    <!-- ABOUT / NOW -->
+    <section id="about">
+      <div class="grid-2">
+        <div class="card">
+          <h2 class="section-title">About me</h2>
+          <p>
+            I’m super ambitious and want to grow within cloud computing, project management, and programming—especially in the healthcare sector.
+          </p>
+        </div>
+
+        <div class="card" id="now">
+          <h2 class="section-title">What I’m working on</h2>
+          <p>
+            I’m focused on AI and cloud computing right now—learning, building small projects, and improving my technical depth.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="card">
+        <h2 class="section-title">Projects</h2>
         <p>
-            I am super ambitious and would love to grow within cloud computing, project management and programming within the healthcare sector. 
+          Coming soon. This section will highlight labs, cloud builds, scripts, dashboards, and anything that proves real skills.
         </p>
-        <h2>What I'm working on</h2>
+        <p class="note">
+          Start simple: add 1–3 projects with a short description, screenshots, and what you learned.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="card">
+        <h2 class="section-title">Contact</h2>
         <p>
-            I'm obsessed with AI and cloud computing right now. 
+          Email: <a href="mailto:yourname@email.com">yourname@email.com</a> &nbsp;•&nbsp;
+          LinkedIn: <a href="#">Add your link</a> &nbsp;•&nbsp;
+          GitHub: <a href="#">Add your link</a>
         </p>
-    </body>
+        <p class="note">Replace these with your real links.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        © <span id="year"></span> Enrique Ramirez. Built with HTML + CSS.
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Auto-updates the footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
